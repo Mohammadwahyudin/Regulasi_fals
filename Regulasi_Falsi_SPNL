@@ -1,0 +1,31 @@
+def func(x):
+    return x**3 - 3*x - 5
+
+def regula_falsi(func, a, b, tol, max_iter):
+    if func(a) * func(b) >= 0:
+        print("Tidak ada akar dalam interval yang diberikan.")
+        return None
+
+    for i in range(max_iter):
+        c = (a * func(b) - b * func(a)) / (func(b) - func(a))
+
+        if func(c) == 0 or abs(func(c)) < tol:
+            return c
+
+        if func(c) * func(a) < 0:
+            b = c
+        else:
+            a = c
+
+    return (a + b) / 2
+
+a = 1.0
+b = 3.0
+tolerance = 1e-5
+max_iterations = 50
+
+result = regula_falsi(func, a, b, tolerance, max_iterations)
+if result is not None:
+    print("Akar yang ditemukan:", result)
+else:
+    print("Metode Regula Falsi tidak konvergen dalam jumlah iterasi maksimum yang diberikan.")
